@@ -1,7 +1,7 @@
 "use client";
 import Typewriter from "typewriter-effect";
 import React from "react";
-
+// check commit
 const TypeEffect = () => {
   return (
     <div className=" text-cyan-50 lg:text-3xl absolute bottom-40 sm:text-xl">
