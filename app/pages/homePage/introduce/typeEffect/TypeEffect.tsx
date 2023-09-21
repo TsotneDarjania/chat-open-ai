@@ -4,7 +4,7 @@ import React from "react";
 // check commit
 const TypeEffect = () => {
   return (
-    <div className=" text-cyan-50 lg:text-3xl absolute bottom-40 sm:text-xl">
+    <div className="text-cyan-50 absolute bottom-40 self-center text-[12px] sm:text-left md:text-3xl">
       <Typewriter
         options={{
           strings: [

@@ -19,8 +19,8 @@ const AiAnimation = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "yellow" }} className={style.wrap}>
-      {generateCircles()}
+    <div className={style.parent}>
+      <div className={style.wrap}>{generateCircles()}</div>;
     </div>
   );
 };
