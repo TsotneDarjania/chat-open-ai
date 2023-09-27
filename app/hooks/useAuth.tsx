@@ -4,22 +4,50 @@ import { useContext } from "react";
 import isEmail from "validator/lib/isEmail";
 import { AuthContext } from "../contexts/AuthContext";
 import useWarning from "./useWarning";
+import { error, log } from "console";
 
 export default function useAuth() {
   const authContext = useContext(AuthContext);
   const { openWarning } = useWarning();
 
-  function registration(email: string, password: string) {
+  async function authentication(email: string, password: string) {
     if (!isEmail(email)) {
-      openWarning("Warning", "Please enter correct email ");
+      openWarning("Warning", "Please provide the correct email address. ");
       return;
     }
 
-    account.create(ID.unique(), email, password).then(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
+    if (password.length < 8) {
+      openWarning(
+        "Warning",
+        "Passwords must consist of at least 8 characters."
+      );
+
+      return;
+    }
+
+    try {
+      const res = await account.get();
+      if (res) {
+        // User is logging in
+        console.log("user is already loggin");
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error.code === 401) {
+        account.create(ID.unique(), email, password).then(
+          (res) => {
+            account.createEmailSession(email, password);
+          },
+          (err) => {
+            console.log(err);
+            if (err.code === 409) {
+              account.createEmailSession(email, password);
+            }
+          }
+        );
+      }
+    }
   }
 
-  return { registration };
+  return { authentication };
 }

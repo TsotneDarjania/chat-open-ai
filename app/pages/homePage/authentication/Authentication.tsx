@@ -10,11 +10,11 @@ const Authentication = () => {
     password: "",
   });
 
-  const { registration } = useAuth();
+  const { authentication } = useAuth();
   const { warningIsOpen, warninProps } = useWarning();
 
   const handleSubmit = () => {
-    registration(formData.current.email, formData.current.password);
+    authentication(formData.current.email, formData.current.password);
   };
 
   return (
