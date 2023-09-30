@@ -1,11 +1,8 @@
-import React from "react";
 import AiAnimation from "./aiAnimation/AiAnimation";
 import TypeEffect from "./typeEffect/TypeEffect";
 import ScrollButton from "./scrollButton/ScrollButton";
 
 const Introduce = () => {
-
-
   return (
     <div className="h-screen flex p-2 flex-col bg-slate-900">
       <div className="text-white text-base sm:w-3/4 md:text-xl md:w-1/3">
