@@ -13,11 +13,7 @@ const useWarning = () => {
     pageContext.setWarningProps({ title, text });
   }
 
-  function closeWarning() {
-    pageContext.setWarningIsOpen(false);
-  }
-
-  return { openWarning, closeWarning, warningIsOpen, warninProps };
+  return { openWarning, pageContext };
 };
 
 export default useWarning;

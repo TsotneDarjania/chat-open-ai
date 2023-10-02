@@ -1,21 +1,32 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import useAuth from "./hooks/useAuth";
 import { useState } from "react";
 import { Authentication, Introduce } from "./(pages)";
 import { Loading } from "./components";
 import appwrite from "@/services/appwrite/appwrite";
-import { account } from "@/services/appwrite/config";
+import useWarning from "./hooks/useWarning";
 
 export default function Home() {
+  const router = useRouter();
   const { authContext } = useAuth();
-  const [loading, setloading] = useState(true);
+  const { pageContext } = useWarning();
 
-  appwrite.getLoginStatus().then((res) => authContext.setIsLogged(res));
+  appwrite.getLoginStatus().then((res) => {
+    authContext.setIsLogged(res);
+    if (authContext.isLogged) {
+      router.push("/main");
+    } else {
+      setTimeout(() => {
+        pageContext.setLoading(false);
+      }, 1000);
+    }
+  });
 
   return (
     <main className="h-screen ">
-      {loading ? (
+      {pageContext.loading ? (
         <Loading />
       ) : (
         <div>

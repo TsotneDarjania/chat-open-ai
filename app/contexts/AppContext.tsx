@@ -11,6 +11,8 @@ type App = {
   setWarningIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   warningProps: { title: string; text: string };
   setWarningProps: Dispatch<SetStateAction<{ title: string; text: string }>>;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AppContext = createContext<App>({
@@ -18,6 +20,8 @@ export const AppContext = createContext<App>({
   warningProps: { title: "", text: "" },
   setWarningIsOpen: () => {},
   setWarningProps: () => {},
+  loading: false,
+  setLoading: () => {},
 });
 
 export default function AppProvider({
@@ -30,6 +34,7 @@ export default function AppProvider({
     title: "",
     text: "",
   });
+  const [loading, setLoading] = useState(false);
 
   return (
     <AppContext.Provider
@@ -38,6 +43,8 @@ export default function AppProvider({
         setWarningIsOpen,
         warningProps,
         setWarningProps,
+        loading,
+        setLoading,
       }}
     >
       {children}
