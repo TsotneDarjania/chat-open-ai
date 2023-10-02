@@ -1,6 +1,6 @@
 "use client";
 
-import { account } from "../../services/appwrite/appwrite";
+import { account } from "../../services/appwrite/config";
 import { ID } from "appwrite";
 import { useContext } from "react";
 import isEmail from "validator/lib/isEmail";
@@ -13,17 +13,6 @@ export default function useAuth() {
   const router = useRouter();
   const authContext = useContext(AuthContext);
   const { openWarning } = useWarning();
-
-  async function checkLogin() {
-    try {
-      const res = await account.get();
-      if (res) {
-        // User is logging in
-        router.push("/main");
-        console.log("user is already loggin");
-      }
-    } catch (error: any) {}
-  }
 
   async function authentication(email: string, password: string) {
     if (!isEmail(email)) {
@@ -63,5 +52,5 @@ export default function useAuth() {
     }
   }
 
-  return { authentication, checkLogin };
+  return { authentication, authContext };
 }

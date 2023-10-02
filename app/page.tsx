@@ -1,23 +1,28 @@
 "use client";
 
 import useAuth from "./hooks/useAuth";
-import useSWR from "swr";
+import { useState } from "react";
 import { Authentication, Introduce } from "./(pages)";
 import { Loading } from "./components";
+import appwrite from "@/services/appwrite/appwrite";
+import { account } from "@/services/appwrite/config";
 
 export default function Home() {
-  const { checkLogin } = useAuth();
+  const { authContext } = useAuth();
+  const [loading, setloading] = useState(true);
 
-  const { data, error } = useSWR("checkLogin", checkLogin);
-
-  if (!data) {
-    return <Loading />;
-  }
+  appwrite.getLoginStatus().then((res) => authContext.setIsLogged(res));
 
   return (
     <main className="h-screen ">
-      <Introduce />
-      <Authentication />
+      {loading ? (
+        <Loading />
+      ) : (
+        <div>
+          <Introduce />
+          <Authentication />
+        </div>
+      )}
     </main>
   );
 }

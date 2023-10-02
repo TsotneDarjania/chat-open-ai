@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import AuthProvider from "./contexts/AuthContext";
 import PageProvider from "./contexts/AppContext";
 import { Inter } from "next/font/google";
-import { Suspense } from "react";
-import Loading from "./pages/homePage/introduce/Loading";
 
 const inter = Inter({ subsets: ["latin"] });
 

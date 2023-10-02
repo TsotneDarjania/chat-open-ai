@@ -1,13 +1,21 @@
 "use client";
 
-import React, { createContext, useContext } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 
 type User = {
-  registration: (email: string,password: string) => void;
+  isLogged: boolean;
+  setIsLogged: Dispatch<SetStateAction<boolean>>;
 };
 
 export const AuthContext = createContext<User>({
-  registration: () => {},
+  isLogged: false,
+  setIsLogged: () => {},
 });
 
 export default function AuthProvider({
@@ -15,9 +23,10 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const registration = (name: string) => {};
+  const [isLogged, setIsLogged] = useState(false);
+
   return (
-    <AuthContext.Provider value={{ registration }}>
+    <AuthContext.Provider value={{ isLogged, setIsLogged }}>
       {children}
     </AuthContext.Provider>
   );
